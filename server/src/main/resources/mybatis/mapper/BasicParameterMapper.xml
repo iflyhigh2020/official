@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leslie.silk.mapper.BasicParameterMapper" >
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.leslie.silk.entity.BasicParameter">
+    <id column="id" jdbcType="DECIMAL" property="id" />
+    <result column="param_type" property="paramType" />
+    <result column="param_name" property="paramName" />
+    <result column="param_key" property="paramKey" />
+    <result column="param_value" property="paramValue" />
+    <result column="lan_code" property="lanCode" />
+    <result column="order_num" property="orderNum" />
+    <result column="remark" property="remark" />
+    <result column="add_no" property="addNo" />
+    <result column="add_name" property="addName" />
+    <result column="add_time" property="addTime" />
+    <result column="update_no" property="updateNo" />
+    <result column="update_name" property="updateName" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+        id, param_type, param_name, param_key, param_value, lan_code, order_num, remark, add_no, add_name, add_time, update_no, update_name, update_time
+    </sql>
+
+  <select id="selectById" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from basic_parameter where id = #{id, jdbcType=DECIMAL}
+  </select>
+
+  <select id="listByType" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from basic_parameter where param_type = #{paramType, jdbcType=VARCHAR}
+    order by order_num
+  </select>
+</mapper>

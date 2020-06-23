@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leslie.silk.mapper.RightFooterMapper">
+
+    <resultMap type="com.leslie.silk.entity.RightFooter" id="RightFooterMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="col1" column="col1" jdbcType="VARCHAR"/>
+        <result property="col2" column="col2" jdbcType="VARCHAR"/>
+        <result property="col3" column="col3" jdbcType="VARCHAR"/>
+        <result property="col4" column="col4" jdbcType="VARCHAR"/>
+        <result property="col5" column="col5" jdbcType="VARCHAR"/>
+        <result property="col6" column="col6" jdbcType="VARCHAR"/>
+        <result property="col7" column="col7" jdbcType="VARCHAR"/>
+        <result property="col8" column="col8" jdbcType="VARCHAR"/>
+        <result property="activeFlag" column="active_flag" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, col1, col2, col3, col4, col5, col6, col7, col8, active_flag, update_time, create_time
+    </sql>
+    
+    <!--查询单个-->
+    <select id="queryById" resultMap="RightFooterMap">
+        select
+        <include refid="Base_Column_List" />
+        from right_footer
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RightFooterMap">
+        select
+        <include refid="Base_Column_List" />
+        from right_footer
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RightFooterMap">
+        select
+        <include refid="Base_Column_List" />
+        from right_footer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="col1 != null and col1 != ''">
+                and col1 = #{col1}
+            </if>
+            <if test="col2 != null and col2 != ''">
+                and col2 = #{col2}
+            </if>
+            <if test="col3 != null and col3 != ''">
+                and col3 = #{col3}
+            </if>
+            <if test="col4 != null and col4 != ''">
+                and col4 = #{col4}
+            </if>
+            <if test="col5 != null and col5 != ''">
+                and col5 = #{col5}
+            </if>
+            <if test="col6 != null and col6 != ''">
+                and col6 = #{col6}
+            </if>
+            <if test="col7 != null and col7 != ''">
+                and col7 = #{col7}
+            </if>
+            <if test="col8 != null and col8 != ''">
+                and col8 = #{col8}
+            </if>
+            <if test="activeFlag != null">
+                and active_flag = #{activeFlag}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into right_footer(col1, col2, col3, col4, col5, col6, col7, col8, active_flag, update_time, create_time)
+        values (#{col1}, #{col2}, #{col3}, #{col4}, #{col5}, #{col6}, #{col7}, #{col8}, #{activeFlag}, #{updateTime}, #{createTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update right_footer
+        <set>
+            <if test="col1 != null and col1 != ''">
+                col1 = #{col1},
+            </if>
+            <if test="col2 != null and col2 != ''">
+                col2 = #{col2},
+            </if>
+            <if test="col3 != null and col3 != ''">
+                col3 = #{col3},
+            </if>
+            <if test="col4 != null and col4 != ''">
+                col4 = #{col4},
+            </if>
+            <if test="col5 != null and col5 != ''">
+                col5 = #{col5},
+            </if>
+            <if test="col6 != null and col6 != ''">
+                col6 = #{col6},
+            </if>
+            <if test="col7 != null and col7 != ''">
+                col7 = #{col7},
+            </if>
+            <if test="col8 != null and col8 != ''">
+                col8 = #{col8},
+            </if>
+            <if test="activeFlag != null">
+                active_flag = #{activeFlag},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from right_footer where id = #{id}
+    </delete>
+
+    <!--查询单个-->
+    <select id="getLast" resultMap="RightFooterMap">
+        select
+        <include refid="Base_Column_List" />
+        from right_footer
+        order by update_time desc
+        limit 0,1
+    </select>
+
+</mapper>

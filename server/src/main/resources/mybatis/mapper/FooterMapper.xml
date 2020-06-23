@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leslie.silk.mapper.FooterMapper">
+
+    <resultMap type="com.leslie.silk.entity.Footer" id="FooterMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="text1" column="text1" jdbcType="VARCHAR"/>
+        <result property="text2" column="text2" jdbcType="VARCHAR"/>
+        <result property="text3" column="text3" jdbcType="VARCHAR"/>
+        <result property="text4" column="text4" jdbcType="VARCHAR"/>
+        <result property="text5" column="text5" jdbcType="VARCHAR"/>
+        <result property="bgColor" column="bg_color" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="FooterMap">
+        select
+          id, title, text1, text2, text3, text4, text5, bg_color, font_color,create_time
+        from footer
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FooterMap">
+        select
+          id, title, text1, text2, text3, text4, text5, bg_color, font_color
+        from footer
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="FooterMap">
+        select
+          id, title, text1, text2, text3, text4, text5, bg_color, font_color
+        from footer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="text1 != null and text1 != ''">
+                and text1 = #{text1}
+            </if>
+            <if test="text2 != null and text2 != ''">
+                and text2 = #{text2}
+            </if>
+            <if test="text3 != null and text3 != ''">
+                and text3 = #{text3}
+            </if>
+            <if test="text4 != null and text4 != ''">
+                and text4 = #{text4}
+            </if>
+            <if test="text5 != null and text5 != ''">
+                and text5 = #{text5}
+            </if>
+            <if test="bgColor != null and bgColor != ''">
+                and bg_color = #{bgColor}
+            </if>
+            <if test="fontColor != null and fontColor != ''">
+                and font_color = #{fontColor}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into footer(title, text1, text2, text3, text4, text5, bg_color, font_color,create_time)
+        values (#{title}, #{text1}, #{text2}, #{text3}, #{text4}, #{text5}, #{bgColor}, #{fontColor}, #{createTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update footer
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="text1 != null and text1 != ''">
+                text1 = #{text1},
+            </if>
+            <if test="text2 != null and text2 != ''">
+                text2 = #{text2},
+            </if>
+            <if test="text3 != null and text3 != ''">
+                text3 = #{text3},
+            </if>
+            <if test="text4 != null and text4 != ''">
+                text4 = #{text4},
+            </if>
+            <if test="text5 != null and text5 != ''">
+                text5 = #{text5},
+            </if>
+            <if test="bgColor != null and bgColor != ''">
+                bg_color = #{bgColor},
+            </if>
+            <if test="fontColor != null and fontColor != ''">
+                font_color = #{fontColor},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from footer where id = #{id}
+    </delete>
+
+    <!--查询单个-->
+    <select id="getLast" resultMap="FooterMap">
+        select
+          id, title, text1, text2, text3, text4, text5, bg_color, font_color
+        from footer
+        order by create_time desc
+        limit 0,1
+    </select>
+
+</mapper>

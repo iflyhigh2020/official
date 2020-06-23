@@ -1,0 +1,185 @@
+<template>
+  <div id="NewsInformation">
+    <div class="container">
+      <div class="container text-center">
+        <h3>{{timelineInfo.title}}</h3>
+        <p style="color:#b2b2b2">{{timelineInfo.titleEn}}</p>
+      </div>
+
+      <ul class="news-container container-fuild">
+        <li v-for="(item,index) in timelineInfo.detailList" :key="index" class="wow fadeIn">
+          <div class="content">
+            <p>{{item.title}}</p>
+            <p>{{item.content}}</p>
+          </div>
+          <div class="time">
+            <p>{{item.dateNode | dateformat('MM-DD')}}</p>
+            <span>{{item.dateNode | dateformat('YYYY')}}</span>
+          </div>
+          <div class="circle">
+            <img src="../assets/img/circle.png">
+            <i class="line center-block"></i>
+          </div>
+        </li>
+      </ul>
+      <div class="contaianer-fuild text-center more">
+        <i class="glyphicon glyphicon-th"></i>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+    export default {
+      name: "Timeline",
+      props: {
+       /* pageType: {
+          type: Number
+        }*/
+      },
+      data() {
+        return {
+          timelineInfo:{
+            title:'',
+            titleEn: '',
+            detailList: []
+          },
+          pageType: 6
+        }
+      },
+      mounted() {
+        this.initTimeline();
+      },
+      methods: {
+        initTimeline() {
+          const url = this.commRouter + '/timeline/getByType?pageType=' + this.pageType + '&groupId=1';
+          this.httpGet(url).then((response) => {
+            this.timelineInfo = response.data.value;
+          }).catch((response) => {
+            console.log(response);
+          })
+        }
+      },
+    }
+</script>
+
+<style scoped>
+  .nav{
+    margin: 20px 0;
+  }
+  .nav>a{
+    display: inline-block;
+    text-decoration: none;
+    width: 120px;
+    height: 45px;
+    line-height: 45px;
+    color: #333;
+    border: 1px solid #333;
+  }
+  .nav>a.active{
+    color: #1e73be;
+    border-color: #1e73be;
+  }
+  .nav>a:hover{
+    color: #1e73be;
+    border-color: #1e73be;
+  }
+  .news-container{
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  .news-container>li{
+    width: 55.6%;
+    height: 120px;
+    float: left;
+    color: #333;
+    text-align: right;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+  }
+  .news-container>li:hover{
+    color: #1e73be;
+    border: 1px solid #1e73be;
+    cursor: pointer;
+  }
+  .news-container>li:nth-of-type(2n){
+    float: right;
+    text-align: left;
+  }
+  .news-container>li>.content{
+    width: 60%;
+    float: left;
+    padding: 20px 0;
+  }
+  .news-container>li>.time{
+    width: 20%;
+    float: left;
+    padding: 10px 0;
+  }
+  .news-container>li>.time>p{
+    font-size: 30px;
+    margin: 5px 0;
+  }
+  .news-container>li>.circle{
+    width: 20%;
+    height: 100%;
+    float: left;
+    position: relative;
+  }
+  .news-container>li>.circle>img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+  }
+  .news-container>li>.circle>i{
+    display: block;
+    width: 1px;
+    height: 100%;
+    background: #707070;
+  }
+  .news-container>li:nth-of-type(2n)>.content{
+    float: right;
+  }
+  .news-container>li:nth-of-type(2n)>.time{
+    float: right;
+  }
+  .news-container>li:nth-of-type(2n)>.circle{
+    float: right;
+  }
+  .news-container>li:nth-of-type(1)>.circle>i{
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  .more{
+    font-size: 25px;
+    color: #707070;
+  }
+  .more>i{
+    cursor: pointer;
+  }
+  @media screen and (max-width: 767px){
+    .news-container>li{
+      width: 100%;
+    }
+    .news-container>li>.content{
+      width: 70%;
+      text-align: left;
+      float: right;
+    }
+    .news-container>li>.time{
+      width: 30%;
+      text-align: left;
+      float: right;
+    }
+    .news-container>li>.circle{
+      display: none;
+    }
+  }
+</style>
