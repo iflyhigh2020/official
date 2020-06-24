@@ -1,4 +1,4 @@
-# <center>springboot + vue搭建的响应式官方网站</center>
+# <div style='display:flex;justify-content:center'>springboot + vue搭建的响应式官方网站</div>
 
 ## 特点
 - 响应式，优化了移动端自适应显示效果
